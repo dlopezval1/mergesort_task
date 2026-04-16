@@ -1,6 +1,7 @@
 CFLAGS=-O3 -std=c11 -fPIC -g
 CXXFLAGS=-O3 -std=c++17 -fPIC -g
 LD=g++
+LDFLAGS=-fopenmp
 
 
 all: mergesort_seq
