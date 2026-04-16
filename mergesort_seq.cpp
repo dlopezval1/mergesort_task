@@ -9,7 +9,7 @@
 #include <chrono>
 #include <vector>
 
-#include <omp.tasking.hpp>
+#include <omp_tasking.hpp>
 
 using namespace tasking;
 
