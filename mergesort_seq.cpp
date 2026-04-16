@@ -87,7 +87,7 @@ void mergesort(int * arr, size_t l, size_t r, int* temp) {
   }
 }
 
-void mergsort_p(int * arr, size_t l, size_t r, int* temp){
+void mergesort_p(int * arr, size_t l, size_t r, int* temp){
   if (l >= r) return;
 
   if((r - l + 1) <= hold){
