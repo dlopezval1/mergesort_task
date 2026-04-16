@@ -15,7 +15,7 @@ using namespace tasking;
 
 #define DEBUG 0
 
-const size_t hold = 1000;
+const size_t hold = 50000;
 
 
 void generateMergeSortData (std::vector<int>& arr, size_t n) {
