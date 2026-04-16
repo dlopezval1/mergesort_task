@@ -9,7 +9,14 @@
 #include <chrono>
 #include <vector>
 
+#include <omp.tasking.hpp>
+
+using namespace tasking;
+
 #define DEBUG 0
+
+const size_t hold = 1000;
+
 
 void generateMergeSortData (std::vector<int>& arr, size_t n) {
   for (size_t  i=0; i< n; ++i) {
@@ -72,12 +79,35 @@ void merge(int * arr, size_t  l, size_t  mid, size_t r, int* temp) {
 }
 
 void mergesort(int * arr, size_t l, size_t r, int* temp) {
-  if (l < r) {
+  if (l >= r) return; {
     size_t mid = (l+r)/2;
     mergesort(arr, l, mid, temp);
     mergesort(arr, mid+1, r, temp);
     merge(arr, l, mid+1, r, temp);
   }
+}
+
+void mergsort_p(int * arr, size_t l, size_t r, int* temp){
+  if (l >= r) return;
+
+  if((r - l + 1) <= hold){
+    mergesort(arr, l, r, temp);
+    return;
+  }
+
+  size_t mid = (l+r)/2;
+  taskstart([&]{
+    mergesort_p(arr, mid, r, temp);
+  });
+
+  taskstart([&]{
+    mergesort_p(arr, mid+1, r, temp);
+  });
+
+  taskwait();
+
+  merge(arr, l, mid, r, temp);
+
 }
 
 
