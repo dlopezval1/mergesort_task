@@ -138,7 +138,11 @@ int main (int argc, char* argv[]) {
   
   std::vector<int> temp (n);
   // sort
-  mergesort(&(arr[0]), 0, n-1, &(temp[0]));
+  doinparallel([&]{
+
+    mergesort_p(&arr[0], 0, n-1, &temp[0]);
+  }, 4);
+
 
   // end timing
   std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
