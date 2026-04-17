@@ -96,8 +96,9 @@ void mergesort_p(int * arr, size_t l, size_t r, int* temp){
   }
 
   size_t mid = (l+r)/2;
+
   taskstart([&]{
-    mergesort_p(arr, mid, r, temp);
+    mergesort_p(arr, l, mid, temp);
   });
 
   taskstart([&]{
@@ -106,7 +107,7 @@ void mergesort_p(int * arr, size_t l, size_t r, int* temp){
 
   taskwait();
 
-  merge(arr, l, mid, r, temp);
+  merge(arr, l, mid+1, r, temp);
 
 }
 
@@ -122,7 +123,9 @@ int main (int argc, char* argv[]) {
 
   // get arr data
   std::vector<int> arr (n);
+
   generateMergeSortData (arr, n);
+
 
 #if DEBUG
   for (size_t i=0; i<n; ++i) 
